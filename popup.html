@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Timestamp Saver</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<div id="customContextMenu" class="custom-context-menu hide">
+  <div id="duplicateOption" class="context-item" tabindex="0">Duplicate</div>
+  <div id="lockOption" class="context-item" tabindex="0">Lock this link</div>
+</div>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-title-group">
+        <button id="closeButton" class="header-close-btn" title="">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+        <h1>Video Timestamp Saver</h1>
+      </div>
+      <div class="header-buttons">
+        <input type="checkbox" id="thumbnailCheckbox" 
+        data-tooltip-on="Use video thumbnail" 
+        data-tooltip-off="Use timestamp image">
+        <button id="deleteAllButton" class="header-delete-btn" title="Delete all">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+            <path d="M2 6h20M19 6l-1 14H6L5 6" />
+            <path d="M9 11v6" />
+            <path d="M12 11v6" />
+            <path d="M15 11v6" />
+            <path d="M21 21l-18 -18" stroke-width="1.2" stroke-linecap="square"/>
+          </svg>
+        </button>
+        <button id="saveButton" class="header-plus-btn" title="Save current video">
+          <svg fill="#ffffff" height="12px" width="12px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              viewBox="0 4 330 350" xml:space="preserve" stroke="currentColor" stroke-width="1">
+              <path id="XMLID_341_" d="M325.606,84.668L245.334,4.394c-2.813-2.813-6.628-4.393-10.607-4.393h-39.708
+                  C195.013,0.001,195.006,0,195,0H75c-0.006,0-0.013,0.001-0.02,0.001H15c-8.284,0-15,6.716-15,15V315c0,8.284,6.716,15,15,15h60h180
+                  h60c8.284,0,15-6.716,15-15V95.274C330,91.296,328.42,87.48,325.606,84.668z M90,30.001h90V110H90V30.001z M90,300v-80h150v80H90z
+                  M300,300h-30v-95c0-8.284-6.716-15-15-15H75c-8.284,0-15,6.716-15,15v95H30V30.001h30V125c0,8.284,6.716,15,15,15h120
+                  c8.284,0,15-6.716,15-15V30.001h18.514L300,101.487V300z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="savedLinks" class="links-container"></div>
+  </div>
+  <div id="deleteConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <p>Are you sure you want to delete all unlocked links?</p>
+      <div class="modal-buttons">
+        <button id="confirmDelete" class="btn">Confirm</button>
+        <button id="cancelDelete" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

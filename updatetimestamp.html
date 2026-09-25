@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Update Time Stamp SVG</title>
+  <style>
+    body {
+      background: #121212;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .update-timestamp-btn {
+      background-color: #111111;
+      color: #fff;
+      border: 2px solid #666666;
+      border-radius: 4px;
+      cursor: default;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      padding: 6px;
+      width: 250px;
+      height: 250px;
+      overflow: hidden;
+      transition:
+        background-color 0.2s,
+        transform 0.1s ease-out,
+        border 0.2s,
+        box-shadow 0.1s ease-out;
+      transform: scale(1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .update-timestamp-btn svg {
+      width: 100px;
+      height: 100px;
+      transform: scale(2.6);
+      transform-origin: center;
+      transition: transform 0.1s ease-out;
+    }
+    .update-timestamp-btn:active {
+      transform: scale(0.91);
+    }
+    @keyframes slideUpFadeOut {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-5px); /* slight slide up */
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .slide-up-group.slide-up {
+      animation: slideUpFadeOut 0.6s ease forwards;
+    }
+
+  </style>
+</head>
+<body>
+
+<button class="update-timestamp-btn" data-index="0" aria-label="Animate arrow">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.6 -0.8 23 22" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="11" r="4" stroke-width="0.8"></circle>
+  <circle cx="12" cy="11" r="0.25" fill="currentColor"></circle> <!-- Inner circle filled -->
+
+  <polyline points="12 8.3 12 11 13.2 13.1" stroke-width="0.8"></polyline>
+
+  <g class="slide-up-group">
+    <path class="anim-path1" d="M18 10.13 Q18 5.6 18 5.6" stroke-dasharray="4.2" stroke-dashoffset="0">
+      <!-- <animate attributeName="stroke-dashoffset" values="3;0" dur="0.2s" calcMode="linear" repeatCount="1" fill="freeze" begin="indefinite"/> -->
+    </path>
+    <path class="anim-path2" d="M18 9.5 16.5 11.5" stroke-dasharray="2.83" stroke-dashoffset="0" transform="translate(0,-4.6)">
+      <!-- <animate attributeName="stroke-dashoffset" values="2.83;0" dur="0.2s" fill="freeze" begin="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4.6" dur="0.2s" calcMode="linear" repeatCount="1" fill="freeze" begin="indefinite"/> -->
+    </path>
+    <path class="anim-path3" d="M18 9.5 19.5 11.5" stroke-dasharray="2.83" stroke-dashoffset="0" transform="translate(0,-4.6)">
+      <!-- <animate attributeName="stroke-dashoffset" values="2.83;0" dur="0.2s" fill="freeze" begin="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4.6" dur="0.2s" calcMode="linear" repeatCount="1" fill="freeze" begin="indefinite"/> -->
+    </path>
+  </g>
+</svg>
+
+</button>
+
+<script>
+document.querySelector('.update-timestamp-btn').addEventListener('click', () => {
+  const linkIndex = 0; // matches data-index
+  const updatedBtn = document.querySelector(`.update-timestamp-btn[data-index="${linkIndex}"]`);
+  if (!updatedBtn) return;
+
+  const group = updatedBtn.querySelector('.slide-up-group');
+
+  // Reset animation class so it can re-trigger
+  group.classList.remove('slide-up');
+  void group.offsetWidth; // force reflow
+
+  // Add slide-up class to start fade+slide animation
+  group.classList.add('slide-up');
+
+  // Wait 700ms (0.7s) before starting SVG animations
+  setTimeout(() => {
+    const paths = updatedBtn.querySelectorAll('path[class^="anim-path"]');
+    paths.forEach(path => {
+      path.querySelectorAll('animate, animateTransform').forEach(anim => {
+        anim.beginElement();
+      });
+    });
+
+    // Remove class to reset for next click
+    group.classList.remove('slide-up');
+  }, 600);
+});
+
+
+
+</script>
+
+</body>
+</html>
