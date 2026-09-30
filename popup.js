@@ -199,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   const existingIndex = savedLinks.slice().reverse().findIndex(link => getBaseUrl(new URL(link.link)) === baseUrl) !== -1 ? savedLinks.length - 1 - savedLinks.slice().reverse().findIndex(link => getBaseUrl(new URL(link.link)) === baseUrl) : -1;
                   if (existingIndex !== -1) {
                     savedLinks[existingIndex].link = linkWithTimestamp;
-                    savedLinks[existingIndex].title = response.title;
                     savedLinks[existingIndex].timestamp = timestamp;
                     savedLinks[existingIndex].timeSeconds = response.time;
                     savedLinks[existingIndex].siteName = siteName;
@@ -645,7 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
             chrome.storage.local.get(["savedLinks"], ({ savedLinks = [] }) => {
               const linkIndex = parseInt(index);
               savedLinks[linkIndex].link = linkWithTimestamp;
-              savedLinks[linkIndex].title = response.title;
               savedLinks[linkIndex].timestamp = timestamp;
               savedLinks[linkIndex].timeSeconds = response.time;
               savedLinks[linkIndex].siteName = siteName;
