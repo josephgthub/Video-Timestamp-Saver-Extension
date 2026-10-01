@@ -298,18 +298,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (!timestamp) return;
       chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-        if (!tab.url || !tab.url.startsWith("http")) {
-          chrome.tabs.update(tab.id, { url });
-          window.close();
-          return;
-        }
         let currentUrl, targetUrl;
         try {
           currentUrl = new URL(tab.url);
           targetUrl = new URL(url);
         } catch (err) {
-          chrome.tabs.update(tab.id, { url });
-          window.close();
+          if (e.ctrlKey) {
+            chrome.tabs.create({ url, active: false });
+          } else {
+            chrome.tabs.update(tab.id, { url });
+            window.close();
+          }
           return;
         }
         const currentBase = getBaseUrl(currentUrl);
