@@ -289,10 +289,29 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (linkItem) {
       e.preventDefault();
       const url = linkItem.href;
-      const timestamp = new URL(url).searchParams.get("t")?.replace("s", "");
+      let timestamp = null;
+      try {
+        timestamp = new URL(url).searchParams.get("t")?.replace("s", "");
+      } catch (err) {
+        console.warn("Invalid URL:", url);
+        return;
+      }
+      if (!timestamp) return;
       chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-        const currentUrl = new URL(tab.url);
-        const targetUrl = new URL(url);
+        if (!tab.url || !tab.url.startsWith("http")) {
+          chrome.tabs.update(tab.id, { url });
+          window.close();
+          return;
+        }
+        let currentUrl, targetUrl;
+        try {
+          currentUrl = new URL(tab.url);
+          targetUrl = new URL(url);
+        } catch (err) {
+          chrome.tabs.update(tab.id, { url });
+          window.close();
+          return;
+        }
         const currentBase = getBaseUrl(currentUrl);
         const targetBase = getBaseUrl(targetUrl);
         if ((currentBase === targetBase && timestamp) && !e.ctrlKey) {
