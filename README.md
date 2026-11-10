@@ -14,3 +14,6 @@ A simple browser extension to save timestamps from videos.
 
 - Click the extension icon in your browser toolbar
 - Use the popup to save timestamps from videos on any webpage
+
+## Screenshot:
+<img width="475" height="742" alt="Popup Screenshot" src="https://github.com/user-attachments/assets/64491474-c530-4990-b13b-2e5c8cf6626b" />
